@@ -22,23 +22,17 @@ function main(request, response, next) {
 function get(request, response) {
 	var cookies = request.cookies;
 	console.log(cookies);
-	   if ('session_id' in cookies)
-      {
-	var sid = cookies['session_id'];
-        if ( login.isLoggedIn(sid) )
-        {
-	    response.setHeader('Set-Cookie', 'session_id=' + sid);
-	    response.end(login.hello(sid));	
-	}
-        else
-        {
+	if ('session_id' in cookies) {
+		var sid = cookies['session_id'];
+		if ( login.isLoggedIn(sid) ) {
+			response.setHeader('Set-Cookie', 'session_id=' + sid);
+			response.end(login.hello(sid));	
+		} else {
 			response.end("Invalid session_id! Please login again\n");
+		}
+	} else {
+		response.end("Please login via HTTP POST\n");
 	}
-      }
-       else
-          {
-	         	response.end("Please login via HTTP POST\n");
-	  }
 };
 
 function post(request, response) {
