@@ -3,10 +3,10 @@ var login = require('./login');
 
 var app = connect();
 
-app.use(connect.json());
-app.use(connect.urlencoded());
-app.use(connect.cookieParser());
-app.use(connect.query());
+app.use(connect.json()); // Parse JSON request body into `request.body`
+app.use(connect.urlencoded()); // Parse form in request body into `request.body`
+app.use(connect.cookieParser()); // Parse cookies in the request headers into `request.cookies`
+app.use(connect.query()); // Parse query string into `request.query`
 
 app.use('/', main);
 
@@ -47,6 +47,10 @@ function post(request, response) {
         response.setHeader('Set-Cookie', 'session_id=' + newSessionId);
 	cookies['session_id'] = newSessionId;
         response.end(login.hello(newSessionId));
+        // TODO: read 'name and email from the request.body'
+	// var newSessionId = login.login('xxx', 'xxx@gmail.com');
+	// TODO: set new session id to the 'session_id' cookie in the response
+	// replace "Logged In" response with response.end(login.hello(newSessionId));
 };
 
 function del(request, response) {
@@ -55,6 +59,9 @@ function del(request, response) {
         var sid=cookies['session_id'];
         login.logout(sid);
   	response.end('Logged out from the server\n');
+  	// TODO: remove session id via login.logout(xxx)
+ 	// No need to set session id in the response cookies since you just logged out!
+
 };
 
 function put(request, response) {
@@ -63,6 +70,7 @@ function put(request, response) {
         var cookies = request.cookies;
         response.setHeader('Set-Cookie', 'session_id=' + newSessionId);
         cookies['session_id'] = newSessionId;
+        // TODO: refresh session id; similar to the post() function
        	response.end("Re-freshed session id\n");
 };
 
