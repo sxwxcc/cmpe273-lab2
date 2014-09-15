@@ -36,7 +36,7 @@ function get(request, response) {
 };
 
 function post(request, response) {
-	var newSessionId = login.login('Nishant Jha', 'nishant.jha@sjsu.edu');
+	var newSessionId = login.login('Foo', 'foo@bar.com');
         var cookies = request.cookies;
         response.setHeader('Set-Cookie', 'session_id=' + newSessionId);
 	cookies['session_id'] = newSessionId;
