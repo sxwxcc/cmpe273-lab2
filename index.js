@@ -33,6 +33,8 @@ function get(request, response) {
 	} else {
 		response.end("Please login via HTTP POST\n");
 	}
+	app.use(function(req, res){
+  res.end('Hello from Connect!\n');})
 };
 
 function post(request, response) {
