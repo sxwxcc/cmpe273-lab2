@@ -60,7 +60,7 @@ function del(request, response) {
 
 function put(request, response) {
 	console.log("PUT:: Re-generate new session_id for the same user");
-	var newSessionId = login.login('Nishant Jha', 'nishant.jha@sjsu.edu');
+	var newSessionId = login.login('Foo', 'foo@bar.com');
         var cookies = request.cookies;
         response.setHeader('Set-Cookie', 'session_id=' + newSessionId);
         cookies['session_id'] = newSessionId;
