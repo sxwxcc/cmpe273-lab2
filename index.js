@@ -52,6 +52,7 @@ function del(request, response) {
  	var cookies=request.cookies;
         var sid=cookies['session_id'];
         login.logout(sid);
+        response.setHeader('Content-Type','text/html');
         // TODO: remove session id via login.logout(xxx)
   	response.end('Logged out from the server\n');
   	// No need to set session id in the response cookies since you just logged out!
@@ -63,6 +64,7 @@ function put(request, response) {
 	var newSessionId = login.login('Foo', 'foo@bar.com');
         var cookies = request.cookies;
         response.setHeader('Set-Cookie', 'session_id=' + newSessionId);
+        response.setHeader('Content-Type','text/html');
         cookies['session_id'] = newSessionId;
         // TODO: refresh session id; similar to the post() function
        	response.end("Re-freshed session id\n");
