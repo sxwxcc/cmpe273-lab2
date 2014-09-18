@@ -36,16 +36,15 @@ function get(request, response) {
 };
 
 function post(request, response) {
-	var newSessionId = login.login('Foo', 'foo@bar.com');  
+	var newSessionId = login.login(request.body.name, request.body.email);  
 	// TODO: read 'name and email from the request.body'
-        var cookies = request.cookies;
-        response.setHeader('Set-Cookie', 'session_id=' + newSessionId);	
-        // var newSessionId = login.login('xxx', 'xxx@gmail.com');
-	cookies['session_id'] = newSessionId;
-	// TODO: set new session id to the 'session_id' cookie in the response
-        response.end(login.hello(newSessionId));	
-        // replace "Logged In" response with response.end(login.hello(newSessionId));
-      };
+   	response.writeHead(200,
+         {
+         'Content-Type' : 'text/html',
+         'session_id':newSessionId 
+         });
+	response.end(login.hello(newSessionId));
+};
 
 function del(request, response) {
 	console.log("DELETE:: Logout from the server");
