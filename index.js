@@ -26,6 +26,7 @@ function get(request, response) {
 		var sid = cookies['session_id'];
 		if ( login.isLoggedIn(sid) ) {
 			response.setHeader('Set-Cookie', 'session_id=' + sid);
+			response.setHeader('Content-Type','text/html');
 			response.end(login.hello(sid));	
 		} else {
 			response.end("Invalid session_id! Please login again\n");
